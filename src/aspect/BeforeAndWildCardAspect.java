@@ -1,15 +1,12 @@
 package aspect;
 
-import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 
-import model.Triangle;
-
 @Aspect
-public class LoggingAspect {
+public class BeforeAndWildCardAspect {
 	//Aspect starts off as a class with the @Aspect annotation becomes a true Aspect
 	//Any methods in Aspect become advice
 	
@@ -36,41 +33,19 @@ public class LoggingAspect {
 		System.out.println("Advice has been executed before a get method");
 	}
 	
-	//PointCut is a place in the code where want a method to "cut in"
-	//If have multiple advice methods that need to run at the same point in the code
-	//use so that do not have to repeat complicated execution statements
-	@Pointcut("execution(public String getName(..))")
-	public void allGetName() {	}
-	
-	//Here you can see the pointcut is being used with the placeholder method allGetName()
-	@Before("allGetName()")
-	public void secondLoggingAdvice() {
-		System.out.println("This is secondary advice, given at defined PointCut for getName() methods");
-	}	
-	
-	@Pointcut("within(model.Triangle)")
-	public void allTriangleMethods() {}
-	
-	@Before("allTriangleMethods()")
-	public void triangleAdvice() {
-		System.out.println("This is advice before triangle methods pointcut");
-	}
-	
-	//JoinPoint Example
-	//All possible places where you can apply advice it is information passed by Spring as an argument to Advice method
-	
-	@Before("allTriangleMethods()")
-	public void enhancedTriangleAdvice(JoinPoint joinPoint) {
-		System.out.println(joinPoint.toString());  //Prints out what method was called in this case model.Triangle.getName()
-		Object obj = joinPoint.getTarget();		//THIS IS HUGE Spring passes the Object whose method was called!! 
-												//Called in this case on a Triangle object have that object to work with in Aspect
-		System.out.println("Advice on the Class of the Object sent from Spring " + obj.getClass());
-		System.out.println("Advice on Objects name: " + ((Triangle)obj).getName());
-	}
-	
+	//Here is an example of targeting all methods whose argument is a single string
+	//In this case the setName(String name) methods are targeted and whatever name is sent to be set
+	//is printed out to the console
 	@Before("args(foo)")
 	public void printOutTheStringAdvice(String foo) {
-		System.out.println("Name: " + foo);
+		System.out.println("Shapes Name: " + foo + "\t\t Targeted methods whose argument is a single String");
 	}
+	
+	//By using proper package structure, can set a Pointcut to target every
+	//method in every class located in specified package
+	//service.*.* specifies of all wildcard classes in service package and all methods in those classes
+	//and (..) says all methods with zero -> n parameters
+	@Pointcut("execution(* service.*.*(..))")
+	public void allMethodsAllClassesInServicePackage() {}
 
 }

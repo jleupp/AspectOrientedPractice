@@ -19,7 +19,14 @@
  	 if spring finds any aspects make sure that Advice methods are executed as configured -->  
    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
    
-   <bean name="loggingAspect" class="aspect.LoggingAspect" />
+   
+   <!-- In order to clean up the print-outs, comment out all aspects other than
+   one at a time or leave them all uncommented to see all aspects at once -->   
+   <bean name="BeforeAndWildcardLoggingAspect" class="aspect.BeforeAndWildCardAspect" />
+   <bean name="JoinPointLoggingAspect" class="aspect.JoinPointAspect" />
+   <bean name="PointcutLoggingAspect" class="aspect.PointcutAspect" />
+   <bean name="AroundLoggingAspect" class="aspect.AroundAspect" />
+   <bean name="CustomAnnotationLoggingAspect" class="aspect.CustomAnnotationAspect" />
  
  <bean name="circle" class="model.Circle">
  	<property name="name" value="Circle name" />

@@ -17,7 +17,7 @@ public class AOPMain {
 		System.out.println(shapeService.getCircle().getName());
 		System.out.println(shapeService.getTriangle().getName());
 		shapeService.getCircle().setName("Jeff's Circle");
-//		System.out.println(shapeService.getCircle().getName());
+		shapeService.getTriangle().annotationMethod();
 
 		//Be Good Close a Resource
 		((ConfigurableApplicationContext)context).close();
