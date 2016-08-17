@@ -12,7 +12,7 @@
 
    <!-- bean definition & AOP specific configuration -->
    <!-- 
-   <context:annotation-config/>
+   <context:annotation-config />
  	-->
  	
  	<!-- This tells spring that Aspect Oriented Programming is in use
