@@ -13,7 +13,21 @@
    <!-- bean definition & AOP specific configuration -->
    <!-- 
    <context:annotation-config/>
-   
+ 	-->
+ 	
+ 	<!-- This tells spring that Aspect Oriented Programming is in use
+ 	 if spring finds any aspects make sure that Advice methods are executed as configured -->  
    <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
- -->
+   
+   <bean name="loggingAspect" class="aspect.LoggingAspect" />
+ 
+ <bean name="circle" class="model.Circle">
+ 	<property name="name" value="Circle name" />
+ </bean>
+ 
+ <bean name="triangle" class="model.Triangle">
+ 	<property name="name" value="Triangle name" />
+ </bean>
+ 
+ <bean name="shapeService" class="service.ShapeService" autowire="byName" />
 </beans>
