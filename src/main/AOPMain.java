@@ -1,4 +1,4 @@
-package placeholder;
+package main;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
